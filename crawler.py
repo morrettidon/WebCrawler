@@ -10,11 +10,11 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
-class WebSearcher:
+class Web:
     def __init__(self, url):
         self.url = url
 
-    def searchWeb(self):
+    def search(self):
         self.r = requests.get(self.url)
         print("\nStatus Code: {}".format(self.r.status_code))
         self.soup = BeautifulSoup(self.r.text,'lxml')
@@ -24,7 +24,11 @@ class WebSearcher:
 
         return "\nThis is the URL{}".format("---> " + self.url)
 
-    def printResults(self):
+    def text(self):
+        t = [i.get_text() for i in self.soup_find_all("p")]
+        return t
+
+    def results(self):
         #print(self.c.most_common(10))
         self.plotters = dict(self.c.most_common(10))
         print("\nLength of 10 most common items in container: " + str(len(self.plotters)))
@@ -54,10 +58,7 @@ class WebSearcher:
 
 
 def main():
-    searcherInstance = WebSearcher(input("Enter URL: "))
-    print(searcherInstance.searchWeb())
-    searcherInstance.printResults()
-    searcherInstance.numpyPrinter()
+    s = Web(input("Enter URL: "))
 
 
 if __name__ == '__main__':
