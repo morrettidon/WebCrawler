@@ -14,19 +14,22 @@ class Web:
     def __init__(self):
         self.url = input("Type URL: ")
 
-    def search(self):
+    def soup(self):
         self.r = requests.get(self.url)
         print("\nStatus Code: {}".format(self.r.status_code))
         self.soup = BeautifulSoup(self.r.text,'lxml')
+        return self.r,self.soup
 
+    def htmlTags(self):
         self.htmlTags = [i.name for i in self.soup.find_all(True)]
         self.c = Counter(self.htmlTags)
 
-        return "\nThis is the URL{}".format("---> " + self.url)
+        print("\nThis is the URL{}".format("---> " + self.url))
+        return self.c
 
     def text(self):
-        t = [i.get_text() for i in self.soup_find_all("p")]
-        return t
+        self.t = [i.get_text() for i in self.soup_find_all("p")]
+        return self.t
 
     def results(self):
         #print(self.c.most_common(10))
