@@ -11,8 +11,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 class Web:
-    def __init__(self, url):
-        self.url = url
+    def __init__(self):
+        self.url = input("Type URL: ")
 
     def search(self):
         self.r = requests.get(self.url)
@@ -58,7 +58,7 @@ class Web:
 
 
 def main():
-    s = Web(input("Enter URL: "))
+    pass
 
 
 if __name__ == '__main__':
